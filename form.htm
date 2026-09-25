@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="https://formsubmit.co/profkris23@gmail.com" method="POST" id="contactForm">
+    <!-- FormSubmit settings (optional but recommended) -->
+    <input type="hidden" name="_subject" value="New contact form submission">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="thanks.htm">
+
+    <table class="w3-content">
+        <tr>
+            <td><label for="fname">Firstname</label></td>
+            <td><input type="text" id="fname" name="fname" required></td>
+        </tr>
+        <tr>
+            <td><label for="lname">Lastname</label></td>
+            <td><input type="text" id="lname" name="lname" required></td>
+        </tr>
+        <tr>
+            <td><label for="email">Email</label></td>
+            <td><input type="email" id="email" name="email" required></td>
+        </tr>
+        <tr>
+            <td><label for="phone">Telephone</label></td>
+            <td>
+                <input type="tel" id="phone" name="phone" placeholder="format xxx-xxx-xxxx" required>
+                <p id="phoneError" style="color: red; margin: 4px 0 0;"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="url">Website URL</label></td>
+            <td><input type="url" id="url" name="url"></td>
+        </tr>
+        <tr>
+            <td><label for="text1">Message</label></td>
+            <td>
+                <textarea id="text1" name="text1" rows="4" cols="30">Send me a message!</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Submit">
+                <input type="reset" value="reset">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script>
+    const form = document.getElementById("contactForm");
+    const phoneInput = document.getElementById("phone");
+    const phoneError = document.getElementById("phoneError");
+
+    function isPhoneValid() {
+        const phonePattern = /^[0-9]{10,}$/;
+        return phonePattern.test(phoneInput.value.replace(/-/g, ""));
+    }
+
+    phoneInput.addEventListener("input", () => {
+        phoneError.textContent = isPhoneValid()
+            ? ""
+            : "Please enter a valid phone number with at least 10 digits.";
+    });
+
+    form.addEventListener("submit", (event) => {
+        if (!isPhoneValid()) {
+            event.preventDefault();
+            phoneError.textContent = "Please enter a valid phone number with at least 10 digits.";
+            phoneInput.focus();
+        }
+        // otherwise let the form submit normally to FormSubmit
+    });
+</script>
+</body>
+</html>
